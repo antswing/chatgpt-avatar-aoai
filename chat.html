@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Talking Avatar Chat Demo</title>
+    <link href="./css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+    <script src="./js/chat.js"></script>
+</head>
+
+<body style="background-color: rgb(0, 0, 0);">
+    <h1 style="text-align: center; color: white;">Talking Avatar Chat Demo</h1>
+    <div style="text-align: center;">
+        <a style="text-align: center; color: #00f278;" href="https://www.linkedin.com/in/moti-malka-2452b2135/" >Createde By Moti Malka (moti.malak25@gmaill.com)</a>
+    </div>
+
+    <div id="configuration" style="background-color: white; padding: 20px; border-radius: 8px;" class="center">
+        <form>
+            <h2>Azure Speech Resource</h2>
+            <label style="font-size: medium;" for="region"></label>
+            <label for="region">Region:</label>
+            <select id="region" style="font-size: medium;" class="form-control">
+                <option value="westeurope">West Europe</option>
+                <option value="westus2">West US 2</option>
+                <option value="southeastasia">Southeast Asia</option>
+            </select>
+
+            <label style="font-size: medium;" for="subscriptionKey">Subscription Key:</label>
+            <input required id="subscriptionKey" type="password" size="32" style="font-size: medium;"
+                class="form-control" /><br />
+
+            <h2>Azure OpenAI Resource</h2>
+            <label for="azureOpenAIEndpoint">Endpoint:</label>
+            <input required id="azureOpenAIEndpoint" type="text" size="64" style="font-size: medium;"
+                class="form-control"></input><br />
+
+            <label for="azureOpenAIApiKey">API Key:</label>
+            <input required id="azureOpenAIApiKey" type="password" size="32" style="font-size: medium;"
+                class="form-control" /><br />
+
+            <label for="azureOpenAIDeploymentName">Deployment Name:</label>
+            <input required id="azureOpenAIDeploymentName" type="text" size="32" style="font-size: medium;"
+                value="gpt-35-turbo" class="form-control" /><br />
+
+            <div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input type="checkbox" id="enableByod" onchange="window.updataEnableByod()"
+                                class="form-control">
+                            <label style="padding-left: 10px; padding-top: 5px;"> Enable BYOD (Bring Your Own
+                                Data)</label>
+                            </input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <div id="cogSearchConfig" hidden="hidden">
+                <h2>Azure Cognitive Search Resource</h2>
+
+                <label for="azureCogSearchEndpoint">Endpoint:</label>
+                <input id="azureCogSearchEndpoint" type="text" size="64" class="form-control"></input><br />
+
+
+                <label style="font-size: medium;" for="azureCogSearchApiKey">API Key:</label>
+                <input id="azureCogSearchApiKey" type="password" size="32" class="form-control" /><br />
+
+                <label style="font-size: medium;" for="azureCogSearchIndexName">Index Name:</label>
+                <input id="azureCogSearchIndexName" type="text" size="32" class="form-control" /><br />
+                <br />
+            </div>
+
+            <h2 style=" width: 150px;">ICE Server</h2>
+
+            <label style="font-size: medium;" for="iceServerUrl">URL:</label>
+            <input required id="iceServerUrl" type="text" size="64" style="font-size: medium;"
+                 class="form-control"></input><br />
+
+            <label style="font-size: medium;" for="iceServerUsername">Username:</label>
+            <input required id="iceServerUsername" type="text" size="64" style="font-size: medium;"
+                class="form-control" /><br />
+
+            <label style="font-size: medium;" for="iceServerCredential">Credential:</label>
+            <input required id="iceServerCredential" type="password" size="32" style="font-size: medium;"
+                 class="form-control" /><br />
+            <br />
+
+            <h2 style=" width: 300px;">STT / TTS Configuration</h2>
+
+            <label style="font-size: medium;" for="sttLocale">STT Locale(s):</label>
+            <input required id="sttLocales" type="text" size="64" style="font-size: medium;"
+                value="en-US,de-DE,es-ES,fr-FR,it-IT,ja-JP,ko-KR,zh-CN,he-IL" class="form-control"></input><br />
+
+            <label style="font-size: medium;" for="ttsVoice">TTS Voice:</label>
+            <input required id="ttsVoice" type="text" size="32" style="font-size: medium;" value="he-IL-HilaNeural"
+                class="form-control"></input>
+            <a href="https://learn.microsoft.com/en-us/azure/ai-services/speech-service/language-support?tabs=tts"
+                target="_blank">Language and voice support for the Speech service</a><br />
+            <br />
+
+
+            <label style="font-size: medium;" for="customVoiceEndpointId">Custom Voice Deployment ID (Endpoint
+                ID):</label>
+            <input id="customVoiceEndpointId" type="text" size="32" style="font-size: medium;" value=""
+                class="form-control"></input><br />
+            <br />
+
+            <h2 style=" width: 300px;">Avatar Configuration</h2>
+
+            <label style="font-size: medium;" for="talkingAvatarCharacter">Avatar Character:</label>
+            <input required id="talkingAvatarCharacter" type="text" size="16" style="font-size: medium;" value="lisa"
+                class="form-control"></input><br />
+
+            <label style="font-size: medium;" for="talkingAvatarStyle">Avatar Style:</label>
+            <input required id="talkingAvatarStyle" type="text" size="16" style="font-size: medium;"
+                value="casual-sitting" class="form-control"></input><br />
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">
+                        <input type="checkbox" id="customizedAvatar" class="form-control"></input>
+                        <label style="padding-left: 10px; padding-top: 5px;"> Custom Avatar</label>
+                        </input>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <button type="button" onclick="window.startSession()" class="btn btn-success"
+                style="width: 100%;">Start</button>
+
+        </form>
+    </div>
+
+    <div id="avatarWindow" class="center" style="text-align: center;">
+
+        <h2 style="color: white;">Avatar Conversation Control Panel</h2>
+        <label for="prompt">System Prompt</label><br />
+        <textarea id="prompt">You are an AI assistant that helps people find information.</textarea>
+        <br />
+
+
+        <div id="videoContainer" style="position: relative;">
+            <div id="overlayArea" style="position: absolute;">
+                <textarea id="chatHistory" style="
+        width: 360px;
+        height: 500px;
+        font-size: medium;
+        border: none;
+        resize: none;
+        background-color: transparent;
+        overflow: hidden;"></textarea>
+            </div>
+            <div id="remoteVideo"></div>
+        </div>
+        <div style="padding: 10px;">
+            <button type="button" class="btn btn-danger" id="startMicrophone" onclick="window.startMicrophone()" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-record-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-8 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                  </svg>
+                  Microphone
+            </button>
+
+            <button hidden="hidden" id="startSession" onclick="window.startSession()">Open Video Connection</button>
+            <i class="bi bi-record-circle-fill"></i>
+            
+            <button class="btn btn-primary" id="clearChatHistory" onclick="window.clearChatHistory()">Clear Chat
+                History</button>
+                
+            <button class="btn btn-primary" id="stopSession" onclick="window.stopSession()" disabled>Close Video
+                Connection</button>
+        </div>
+
+        <h2 style=" width: 100px;">Logs</h2>
+        <div id="logging"></div>
+    </div>
+</body>
+
+</html>
