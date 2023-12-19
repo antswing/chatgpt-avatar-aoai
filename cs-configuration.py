@@ -6,7 +6,7 @@ from azure.communication.identity import CommunicationIdentityClient
 try:
   print("Azure Communication Services - Access Relay Configuration  Quickstart")
   # You can find your endpoint and access token from your resource in the Azure Portal
-  connection_str = "endpoint=https://moti-azure-cs.unitedstates.communication.azure.com/;accesskey=GoRCiQPvlOqPZXqC0u54oQpIwy8od/vj4n3fXKz9QHM+IMtp7qEzGxR+KnFyXxxowBzsGr9/QVETBxQkDAs/xg=="
+  
   endpoint = "https://moti-azure-cs.unitedstates.communication.azure.com"
 
   # To use Azure Active Directory Authentication (DefaultAzureCredential) make sure to have
