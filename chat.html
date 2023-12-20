@@ -79,12 +79,12 @@
             <h2 style=" width: 150px;">ICE Server</h2>
 
             <label style="font-size: medium;" for="iceServerUrl">URL:</label>
-            <input required id="iceServerUrl" type="text" size="64" style="font-size: medium;"
+            <input required id="iceServerUrl" type="password" size="64" style="font-size: medium;"
                  class="form-control"></input><br />
 
             <label style="font-size: medium;" for="iceServerUsername">Username:</label>
-            <input required id="iceServerUsername" type="text" size="64" style="font-size: medium;"
-                class="form-control" /><br />
+            <input required id="iceServerUsername" type="password" size="64" style="font-size: medium;"
+                class="form-control"/><br />
 
             <label style="font-size: medium;" for="iceServerCredential">Credential:</label>
             <input required id="iceServerCredential" type="password" size="32" style="font-size: medium;"
@@ -137,7 +137,7 @@
         </form>
     </div>
 
-    <div id="avatarWindow" class="center" style="text-align: center;">
+    <div id="avatarWindow" class="center" style="text-align: center;" hidden="hidden">
 
         <h2 style="color: white;">Avatar Conversation Control Panel</h2>
         <label for="prompt">System Prompt</label><br />
@@ -147,7 +147,7 @@
 
         <div id="videoContainer" style="position: relative;">
             <div id="overlayArea" style="position: absolute;">
-                <textarea id="chatHistory" style="
+                <textarea hidden="hidden" id="chatHistory" style="
         width: 360px;
         height: 500px;
         font-size: medium;
