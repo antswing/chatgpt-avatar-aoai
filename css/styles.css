@@ -328,11 +328,3 @@ input:checked + .slider:before {
     border: 3px solid rgb(0, 68, 193);
     padding: 10px;
 }
-
-avatarWindow{
-    position: fixed;
-    top: 0;
-    right: 0;
-    transform: translate(-50%, 0);
-  }
-
